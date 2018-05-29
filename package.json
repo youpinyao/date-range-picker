@@ -1,0 +1,40 @@
+{
+  "name": "date-range-picker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ywebpack start ./ywebpack.config.js",
+    "build": "ywebpack build ./ywebpack.config.js",
+    "dll": "ywebpack dll ./ywebpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/youpinyao/date-range-picker.git"
+  },
+  "keywords": [
+    "date",
+    "range",
+    "picker"
+  ],
+  "author": "youpinyao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/youpinyao/date-range-picker/issues"
+  },
+  "homepage": "https://github.com/youpinyao/date-range-picker#readme",
+  "dependencies": {
+    "art-template": "^4.12.2",
+    "jquery": "^1.12.4",
+    "lodash": "^4.17.10",
+    "moment": "^2.22.1"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-eslint": "8.2.3",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.12.0",
+    "ywebpack": "0.0.56"
+  }
+}

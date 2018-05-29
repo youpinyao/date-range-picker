@@ -1,0 +1,85 @@
+@import './minxins.less';
+@size: 40px;
+@active-color: #FF6E8B;
+@active-font-color: #ffffff;
+@disabled-color: #eeeeee;
+@disabled-font-color: #aaaaaa;
+@border-color: #eeeeee;
+:global {
+  .y-date-range-picker {
+    font-size: 16px;
+    -webkit-touch-callout: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -ms-touch-action: none;
+    -moz-user-select: -moz-none;
+    .clearfix;
+    &-title {
+      text-align: center;
+      padding: 10px 10px 10px 10px;
+      .clearfix;
+      i {
+        cursor: pointer;
+        font-style: normal;
+        &.hide {
+          visibility: hidden;
+        }
+        &:first-child {
+          float: left;
+        }
+        &:last-child {
+          float: right;
+        }
+      }
+    }
+    &-months {
+      .clearfix;
+      float: left;
+      border: 1px solid @border-color;
+      border-radius: 5px;
+      margin: 0 5px;
+      padding: 5px;
+    }
+    &-month {
+      width: @size * 7;
+    }
+    &-days {
+      .clearfix;
+    }
+    &-day {
+      float: left;
+      width: @size;
+      height: @size;
+      line-height: @size;
+      text-align: center;
+      vertical-align: top;
+    }
+    &-dates {
+      .clearfix;
+    }
+    &-date {
+      float: left;
+      width: @size;
+      height: @size;
+      line-height: @size;
+      text-align: center;
+      vertical-align: top;
+      &[data-type="date"] {
+        cursor: pointer;
+      }
+      &[data-disabled="true"] {
+        background-color: @disabled-color;
+        color: @disabled-font-color;
+        cursor: default;
+      }
+      &[data-active="true"] {
+        background-color: @active-color !important;
+        color: @active-font-color !important;
+      }
+      &[data-active="true"][data-single="true"] {
+        opacity: .8 !important;
+      }
+    }
+  }
+}
