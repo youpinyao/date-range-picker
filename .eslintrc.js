@@ -12,5 +12,6 @@ module.exports = {
   },
   "globals": {
     "window": true,
+    "define": true,
   },
 };

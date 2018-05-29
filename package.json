@@ -2,12 +2,11 @@
   "name": "date-range-picker",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "start:example": "ywebpack start ./ywebpack.config.example.js",
+    "start": "ywebpack start ./ywebpack.config.example.js",
     "build:example": "ywebpack build ./ywebpack.config.example.js",
     "dll:example": "ywebpack dll ./ywebpack.config.example.js",
-    "start": "ywebpack start ./ywebpack.config.js",
     "build": "ywebpack build ./ywebpack.config.js",
     "dll": "ywebpack dll ./ywebpack.config.js"
   },
