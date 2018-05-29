@@ -1,17 +1,15 @@
 const path = require('path');
-// eslint-disable-next-line
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   port: '8080',
   host: '0.0.0.0',
   publicPath: '/',
-  path: 'dist',
-  vendors: false,
-  hash: false,
+  path: 'dist-example',
+  vendors: ['jquery'],
   entrys: [{
-    name: 'picker.min',
-    entry: './index.js',
+    template: 'example/index.html',
+    filename: 'index.html',
+    entry: 'example/index.js',
   }],
   cssOptions: undefined,
   lessOptions: undefined,
@@ -24,15 +22,6 @@ module.exports = {
         tpl: path.resolve(__dirname, './node_modules/art-template/lib/template-web.js'),
       },
     },
-    output: {
-      filename: '[name].js',
-      sourceMapFilename: '[name].map',
-    },
-    plugins: [new ExtractTextPlugin({
-      filename: '[name].css',
-      disable: false,
-      allChunks: true,
-    })],
   },
   afterBuild() {
     console.log('afterBuild');
