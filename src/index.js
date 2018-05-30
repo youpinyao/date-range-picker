@@ -1,5 +1,3 @@
-import moment from 'moment';
-import $ from 'jquery';
 import tpl from 'tpl';
 
 import './less/index.less';
@@ -14,28 +12,49 @@ export default class Picker {
   constructor(config = {}) {
     this.state = {
       target: $('body'),
+      multiple: false,
       onChange: () => {},
     };
+
+    this.click = this.click.bind(this);
+    this.mousemove = this.mousemove.bind(this);
+    this.closePicker = this.closePicker.bind(this);
 
     this.update(config);
     this.bindEvent();
 
+
     return {
       update: this.update.bind(this),
+      getValue: () => $.extend(true, [], this.state.value),
     };
   }
   update(config) {
     const {
+      // 渲染目标
       target = this.state.target,
+      // 值
+      value = this.state.value,
+      // 最小日期
       minDate = this.state.minDate,
+      // 最大日期
       maxDate = this.state.maxDate,
+      // 标记日期
       tagDate = this.state.tagDate,
+      // 显示多个日期控件，默认两个
       dates = this.state.dates,
+      // 事件
       onChange = this.state.onChange,
+      // 是否多选
+      multiple = this.state.multiple,
     } = config;
 
     this.setState({
       target,
+      // eslint-disable-next-line
+      value: value ? value.map((v) => {
+        return typeof v !== 'string' && v.length ? v.map(vi => moment(vi)) : moment(v);
+      }) : [],
       minDate: minDate ? moment(minDate) : undefined,
       maxDate: maxDate ? moment(maxDate) : undefined,
       tagDate: this.renderTagDate(tagDate) || undefined,
@@ -45,6 +64,9 @@ export default class Picker {
       startDate: null,
       endDate: null,
       moveEndDate: null,
+
+      // 多选
+      multiple,
     });
   }
   // eslint-disable-next-line
@@ -86,9 +108,27 @@ export default class Picker {
       minDate,
       maxDate,
       tagDate,
+      value,
+      multiple,
     } = this.state;
 
     const dateHtmls = [];
+    let newTagDate = tagDate.map(tag => ({
+      ...tag,
+      tag: true,
+    }));
+
+    if (multiple) {
+      newTagDate = newTagDate.concat(value.map(v => ({
+        date: v,
+        active: true,
+      })));
+    } else if (value.length) {
+      newTagDate.push({
+        date: value,
+        active: true,
+      });
+    }
 
     dates.forEach((date, index) => {
       dateHtmls.push(render({
@@ -98,7 +138,7 @@ export default class Picker {
         range: [startDate, endDate || moveEndDate],
         minDate,
         maxDate,
-        tagDate,
+        tagDate: newTagDate,
         single: startDate && !endDate,
       }));
     });
@@ -107,11 +147,23 @@ export default class Picker {
       dateHtmls,
     });
 
-    if (this.bakHtml !== html) {
-      target.html(html);
+    this.html = $(html);
+
+    if (this.bak_html_str !== html) {
+      target.html(this.html);
     }
 
-    this.bakHtml = html;
+    this.bak_html_str = html;
+  }
+  destroy() {
+    const {
+      target,
+    } = this.state;
+
+    this.html.remove();
+    target.unbind('click', this.click);
+    target.unbind('mousemove', this.mousemove);
+    $(window).unbind('click', this.closePicker);
   }
   // eslint-disable-next-line
   bindEvent() {
@@ -119,9 +171,9 @@ export default class Picker {
       target,
     } = this.state;
 
-    target.bind('click', this.click.bind(this));
-    target.bind('mousemove', this.mousemove.bind(this));
-    $(window).bind('click', this.closePicker.bind(this));
+    target.bind('click', this.click);
+    target.bind('mousemove', this.mousemove);
+    $(window).bind('click', this.closePicker);
   }
   // eslint-disable-next-line
   closePicker() {
@@ -159,6 +211,7 @@ export default class Picker {
     this.setState({
       dates,
     });
+    this.onChange('date');
   }
   nextMonth(e) {
     const target = $(e.target);
@@ -172,6 +225,7 @@ export default class Picker {
     this.setState({
       dates,
     });
+    this.onChange('date');
   }
   mousemove(e) {
     const target = $(e.target);
@@ -186,6 +240,8 @@ export default class Picker {
     const {
       startDate,
       endDate,
+      multiple,
+      value,
     } = this.state;
     if (target.attr('data-disabled') === 'true') {
       return;
@@ -196,13 +252,14 @@ export default class Picker {
           startDate: moment(target.attr('data-full-date')),
           endDate: undefined,
           moveEndDate: undefined,
+          value: multiple ? value : [],
         });
       } else if (startDate && !endDate) {
         this.setState({
           startDate,
           endDate: moment(target.attr('data-full-date')),
         });
-        this.onChange();
+        this.onChange('range');
       }
     } else if (e.type === 'mousemove' && startDate) {
       this.setState({
@@ -210,13 +267,35 @@ export default class Picker {
       });
     }
   }
-  onChange() {
+  onChange(type) {
     const {
       startDate,
       endDate,
+      dates,
       onChange,
+      multiple,
     } = this.state;
 
-    onChange.call(this, [startDate, endDate]);
+    let {
+      value,
+    } = this.state;
+
+    // 赋值
+    this.state.value = value;
+
+    if (type === 'range') {
+      // eslint-disable-next-line
+      const selectDate = [startDate, endDate].sort((a, b) => +(a._d) - +(b._d));
+
+      if (multiple) {
+        value.push(selectDate);
+      } else {
+        value = selectDate;
+      }
+      onChange.call(this, type, value);
+    }
+    if (type === 'date') {
+      onChange.call(this, type, dates);
+    }
   }
 }

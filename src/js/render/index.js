@@ -1,5 +1,4 @@
 import tpl from 'tpl';
-import moment from 'moment';
 import getDates from './get-dates';
 import monthTpl from '../../tpl/month.html';
 

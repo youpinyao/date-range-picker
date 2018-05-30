@@ -1,4 +1,4 @@
-import moment from 'moment';
+
 import {
   YYYYMMDD,
 } from './format';
@@ -23,18 +23,20 @@ function getDate({
   }
 
   let disabled = false;
+  let piece = false;
   let styles = {};
 
   if (tagDateMill) {
     tagDateMill.forEach((items) => {
-      if (items.styles) {
-        if (dateMill >= items.date[0] && dateMill <= items.date[1]) {
-          // disabled = true;
-          styles = {
-            ...styles,
-            ...items.styles,
-          };
-        }
+      if (items.tag && dateMill >= items.date[0] && dateMill <= items.date[1]) {
+        // disabled = true;
+        piece = !!items.piece;
+        styles = {
+          ...styles,
+          ...items.styles,
+        };
+      } else if (items.active && dateMill >= items.date[0] && dateMill <= items.date[1]) {
+        active = true;
       } else if (dateMill >= items[0] && dateMill <= items[1]) {
         disabled = true;
       }
@@ -49,12 +51,21 @@ function getDate({
   }
 
   return {
+    // 星期
     day: date.day(),
+    // 日期 天
     date: date.date(),
+    // 日期 全
     fullDate: date.format(YYYYMMDD),
+    // 选中状态
     active,
+    // 不可点击
     disabled,
+    // 选择中
     single,
+    // 显示部分色块
+    piece,
+    // 样式
     styles: Object.keys(styles).map(key => `${key}:${styles[key]}`).join(';'),
   };
 }
@@ -86,7 +97,7 @@ export default function ({
     .millisecond(0)._d) : undefined;
   // eslint-disable-next-line
   const tagDateMill = tagDate ? tagDate.map(d => {
-    return d.styles ? {
+    return d.tag || d.active ? {
       ...d,
       // eslint-disable-next-line
       date: [+(d.date[0].hour(0).minute(0).second(0).millisecond(0)._d), +(d.date[1].hour(0).minute(0).second(0).millisecond(0)._d)],

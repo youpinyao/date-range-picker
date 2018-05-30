@@ -1,5 +1,7 @@
 const path = require('path');
 // eslint-disable-next-line
+const webpack = require('webpack');
+// eslint-disable-next-line
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
@@ -13,7 +15,9 @@ module.exports = {
     name: 'picker.min',
     entry: './index.js',
   }],
-  cssOptions: undefined,
+  cssOptions: {
+    modules: false,
+  },
   lessOptions: undefined,
   sassOptions: undefined,
   extraBabelPresets: [],
@@ -24,15 +28,14 @@ module.exports = {
         tpl: path.resolve(__dirname, './node_modules/art-template/lib/template-web.js'),
       },
     },
-    output: {
-      filename: '[name].js',
-      sourceMapFilename: '[name].map',
-    },
-    plugins: [new ExtractTextPlugin({
-      filename: '[name].css',
-      disable: false,
-      allChunks: true,
-    })],
+    plugins: [
+      // new webpack.ProvidePlugin({
+      //   $: 'jquery',
+      // }),
+      // new webpack.ProvidePlugin({
+      //   moment: 'moment',
+      // }),
+    ],
   },
   afterBuild() {
     console.log('afterBuild');

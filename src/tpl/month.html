@@ -1,8 +1,10 @@
 <div class="y-date-range-picker-month">
   <div class="y-date-range-picker-title">
-    <i data-type="prev-month" class="{{prevDate === title ? 'hide' : ''}}">上月</i>
+    <i data-type="prev-month"
+      class="{{prevDate === title ? 'hide' : ''}}">上月</i>
     <span>{{title}}</span>
-    <i data-type="next-month" class="{{nextDate === title ? 'hide' : ''}}">下月</i>
+    <i data-type="next-month"
+      class="{{nextDate === title ? 'hide' : ''}}">下月</i>
   </div>
   <div class="y-date-range-picker-days">
     <div class="y-date-range-picker-day">一</div>
@@ -13,7 +15,7 @@
     <div class="y-date-range-picker-day">六</div>
     <div class="y-date-range-picker-day">日</div>
   </div>
-  <view class="y-date-range-picker-dates">
+  <div class="y-date-range-picker-dates">
     {{each dates}}
     <div class="y-date-range-picker-date"
       data-active="{{$value.active}}"
@@ -22,8 +24,12 @@
       data-type="{{$value.date ? 'date' : undefind}}"
       data-day="{{$value.day}}"
       data-full-date="{{$value.fullDate}}"
-      style="{{$value.styles}}"
-      data-date="{{$value.date}}">{{$value.date}}</div>
+      style="{{$value.piece ? undefined : $value.styles}}"
+      data-date="{{$value.date}}">{{$value.date}} {{if $value.piece}}
+      <div class="y-date-range-picker-date-piece"
+        style="{{$value.styles}}"></div>
+      {{/if}}
+    </div>
     {{/each}}
-  </view>
+  </div>
 </div>

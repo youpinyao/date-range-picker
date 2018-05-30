@@ -1,0 +1,92 @@
+.clearfix {
+  zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  display: table;
+}
+
+.clearfix:after {
+  clear: both;
+  visibility: hidden;
+  font-size: 0;
+  height: 0;
+}
+
+.y-custom-date-range-picker {
+  cursor: default;
+  color: #000000;
+  background-color: #f2f2f2;
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -ms-touch-action: none;
+  -moz-user-select: -moz-none;
+}
+
+.dates {
+  font-size: 14px;
+  padding: 5px;
+}
+
+.dates > div {
+  background-color: #ffffff;
+  display: inline-block;
+  vertical-align: top;
+  margin: 0 5px 5px 0;
+  padding: 5px 10px;
+  border-radius: 5px;
+  line-height: 20px;
+}
+
+.dates > div .del {
+  cursor: pointer;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 14px;
+}
+
+.toolbar {
+  padding: 5px;
+  text-align: right;
+  color: #000000;
+}
+
+.tags {
+  font-size: 14px;
+  line-height: 35px;
+  float: left;
+}
+
+.tags > div {
+  display: inline-block;
+  padding-right: 20px;
+}
+
+.tags i {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #000;
+  vertical-align: middle;
+  margin: 0 5px 0 0;
+}
+
+.button {
+  font-size: 14px;
+  line-height: 33px;
+  padding: 0 20px;
+  border-radius: 5px;
+  border: 1px solid #eeeeee;
+  background-color: #ffffff;
+  display: inline-block;
+  cursor: pointer;
+  color: #000000;
+}
+
+.button.primary {
+  background-color: #ff74b9;
+  color: #ffffff;
+}

@@ -12,6 +12,7 @@ module.exports = {
   },
   "globals": {
     "window": true,
-    "define": true,
+    "moment": true,
+    "$": true,
   },
 };

@@ -1,17 +1,23 @@
 const path = require('path');
+// eslint-disable-next-line
+const webpack = require('webpack');
+// eslint-disable-next-line
+const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
 
 module.exports = {
   port: '8080',
   host: '0.0.0.0',
   publicPath: '/',
   path: 'dist-example',
-  vendors: ['jquery'],
+  vendors: ['jquery', 'moment'],
   entrys: [{
     template: 'example/index.html',
     filename: 'index.html',
     entry: 'example/index.js',
   }],
-  cssOptions: undefined,
+  cssOptions: {
+    modules: false,
+  },
   lessOptions: undefined,
   sassOptions: undefined,
   extraBabelPresets: [],
@@ -22,6 +28,32 @@ module.exports = {
         tpl: path.resolve(__dirname, './node_modules/art-template/lib/template-web.js'),
       },
     },
+    plugins: [
+      new HtmlWebpackIncludeAssetsPlugin({
+        assets: ['./node_modules/jquery/dist/jquery.min.js'],
+        append: false,
+        publicPath: '/',
+        hash: true,
+      }),
+      new HtmlWebpackIncludeAssetsPlugin({
+        assets: ['./node_modules/moment/min/moment.min.js'],
+        append: false,
+        publicPath: '/',
+        hash: true,
+      }),
+      new HtmlWebpackIncludeAssetsPlugin({
+        assets: ['./dist/picker.min.css'],
+        append: false,
+        publicPath: '/',
+        hash: true,
+      }),
+      new HtmlWebpackIncludeAssetsPlugin({
+        assets: ['./dist/picker.min.js'],
+        append: false,
+        publicPath: '/',
+        hash: true,
+      }),
+    ],
   },
   afterBuild() {
     console.log('afterBuild');
