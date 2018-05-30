@@ -1,8 +1,7 @@
 // import $ from 'jquery';
 // import moment from 'moment';
 // import Picker from '../src';
-
-import './index.css';
+// import './index.css';
 
 var Picker = window.YDateRangePicker;
 var pickerBox = $('.y-custom-date-range-picker');
