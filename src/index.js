@@ -84,7 +84,7 @@ export default class Picker {
         styles: this.convertStyles(d.styles || {}),
       }));
     }
-    return [dates.map(date => moment(date))];
+    return dates.length ? [dates.map(date => moment(date))] : dates;
   }
   // eslint-disable-next-line
   convertStyles(styles) {
