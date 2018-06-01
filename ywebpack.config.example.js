@@ -41,18 +41,6 @@ module.exports = {
         publicPath: '/',
         hash: true,
       }),
-      new HtmlWebpackIncludeAssetsPlugin({
-        assets: ['./dist/picker.min.css'],
-        append: false,
-        publicPath: '/',
-        hash: true,
-      }),
-      new HtmlWebpackIncludeAssetsPlugin({
-        assets: ['./dist/picker.min.js'],
-        append: false,
-        publicPath: '/',
-        hash: true,
-      }),
     ],
   },
   afterBuild() {
