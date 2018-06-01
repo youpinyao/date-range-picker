@@ -23,6 +23,26 @@
     text-align: center;
     padding: 5px 5px 5px 5px;
     .clearfix;
+    span {
+      letter-spacing: -0.31em;
+      select {
+        appearance: none;
+        border: 0;
+        background: none;
+        letter-spacing: normal;
+        text-decoration: none;
+        color: inherit;
+        font-size: inherit;
+        padding: 2px 5px;
+        border-radius: 3px;
+        &:focus {
+          outline: none;
+        }
+        &:hover {
+          background-color: @border-color;
+        }
+      }
+    }
     i {
       cursor: pointer;
       font-style: normal;
@@ -37,7 +57,7 @@
       }
     }
   }
-  &-months {
+  &-month-box {
     letter-spacing: normal;
     background-color: @white;
     display: inline-block;

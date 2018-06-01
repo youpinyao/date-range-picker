@@ -132,6 +132,7 @@ export default class Picker {
 
     dates.forEach((date, index) => {
       dateHtmls.push(render({
+        index,
         date,
         prevDate: dates[index - 1],
         nextDate: dates[index + 1],
@@ -139,7 +140,7 @@ export default class Picker {
         minDate,
         maxDate,
         tagDate: newTagDate,
-        single: startDate && !endDate,
+        single: startDate && !endDate ? [startDate, moveEndDate || startDate] : null,
       }));
     });
 
@@ -147,10 +148,10 @@ export default class Picker {
       dateHtmls,
     });
 
-    this.html = $(html);
-
     if (this.bak_html_str !== html) {
+      this.html = $(html);
       target.html(this.html);
+      this.bindSelectEvent();
     }
 
     this.bak_html_str = html;
@@ -198,6 +199,90 @@ export default class Picker {
     if (type === 'next-month') {
       this.nextMonth(e);
     }
+  }
+  bindSelectEvent() {
+    const years = this.html.find('select[data-type="year"]');
+    const months = this.html.find('select[data-type="month"]');
+
+    Array.prototype.forEach.call(years, el => this.renderChooseYear(el));
+    Array.prototype.forEach.call(months, el => this.renderChooseMonth(el));
+  }
+  // eslint-disable-next-line
+  renderChooseYear(el) {
+    const {
+      dates,
+    } = this.state;
+    const target = $(el);
+    const index = parseInt(target.attr('data-index'), 10);
+    const date = dates[index];
+    const prevDate = dates[index - 1];
+    const nextDate = dates[index + 1];
+    const years = [];
+    const diff = 30;
+    let minYear = date.year() - diff;
+    let maxYear = date.year() + diff;
+
+    if (prevDate) {
+      minYear = prevDate.year();
+    }
+    if (nextDate) {
+      maxYear = nextDate.year();
+    }
+
+    for (let i = minYear; i <= maxYear; i += 1) {
+      years.push(i);
+    }
+    target.html(tpl.render(`{{each years}}
+      <option value="{{$value}}" {{$value === year ? 'selected' : ''}}>{{$value}}年</option>
+    {{/each}}`, {
+      years,
+      year: date.year(),
+    }));
+
+    target.bind('change', (e) => {
+      dates[index] = date.year(parseInt(e.target.value, 10));
+      this.setState({
+        dates,
+      });
+    });
+  }
+  // eslint-disable-next-line
+  renderChooseMonth(el) {
+    const {
+      dates,
+    } = this.state;
+    const target = $(el);
+    const index = parseInt(target.attr('data-index'), 10);
+    const date = dates[index];
+    const prevDate = dates[index - 1];
+    const nextDate = dates[index + 1];
+    const months = [];
+    let minMonth = 1;
+    let maxMonth = 12;
+
+    if (prevDate && prevDate.year() === date.year()) {
+      minMonth = prevDate.month() + 1;
+    }
+    if (nextDate && nextDate.year() === date.year()) {
+      maxMonth = nextDate.month() + 1;
+    }
+
+    for (let i = minMonth + 1; i < maxMonth; i += 1) {
+      months.push(i);
+    }
+
+    target.html(tpl.render(`{{each months}}
+      <option value="{{$value}}" {{$value === month ? 'selected' : ''}}>{{$value}}月</option>
+    {{/each}}`, {
+      months,
+      month: date.month() + 1,
+    }));
+    target.bind('change', (e) => {
+      dates[index] = date.month(parseInt(e.target.value, 10) - 1);
+      this.setState({
+        dates,
+      });
+    });
   }
   prevMonth(e) {
     const target = $(e.target);

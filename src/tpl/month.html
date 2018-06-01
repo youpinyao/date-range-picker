@@ -2,7 +2,15 @@
   <div class="y-date-range-picker-title">
     <i data-type="prev-month"
       class="{{prevDate === title ? 'hide' : ''}}">上月</i>
-    <span>{{title}}</span>
+    <span>
+      <select data-index="{{index}}" data-type="year">
+        <option value="year">{{year}}年</option>
+      </select>
+
+      <select data-index="{{index}}" data-type="month">
+        <option value="year">{{month}}月</option>
+      </select>
+    </span>
     <i data-type="next-month"
       class="{{nextDate === title ? 'hide' : ''}}">下月</i>
   </div>

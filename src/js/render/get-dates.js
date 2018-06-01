@@ -62,7 +62,8 @@ function getDate({
     // 不可点击
     disabled,
     // 选择中
-    single,
+    // eslint-disable-next-line
+    single: single ? ((dateMill >= (+single[0]._d) && dateMill <= (+single[1]._d)) || dateMill <= (+single[0]._d) && dateMill >= (+single[1]._d)) : false,
     // 显示部分色块
     piece,
     // 样式

@@ -3,10 +3,11 @@ import getDates from './get-dates';
 import monthTpl from '../../tpl/month.html';
 
 import {
-  YYYYMM,
+  YYYYMMDD,
 } from './format';
 
 export default function ({
+  index,
   date,
   prevDate,
   nextDate,
@@ -38,11 +39,14 @@ export default function ({
   }
 
   return tpl.render(monthTpl, {
-    title: date.format(YYYYMM),
+    index,
+    year: date.format('YYYY'),
+    month: date.format('MM'),
+    title: date.format(YYYYMMDD),
     // eslint-disable-next-line
-    prevDate: prevDate ? moment(prevDate._d).add(1, 'month').format(YYYYMM) : undefined,
+    prevDate: prevDate ? moment(prevDate._d).add(1, 'month').format(YYYYMMDD) : undefined,
     // eslint-disable-next-line
-    nextDate: nextDate ? moment(nextDate._d).add(-1, 'month').format(YYYYMM) : undefined,
+    nextDate: nextDate ? moment(nextDate._d).add(-1, 'month').format(YYYYMMDD) : undefined,
     dates,
   });
 }

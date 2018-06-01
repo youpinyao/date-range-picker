@@ -3,11 +3,12 @@ import moment from 'moment';
 import Picker from '../src';
 import './index.css';
 
-var pickerBox = $('.y-custom-date-range-picker');
-var picker = null;
+const pickerBox = $('.y-custom-date-range-picker');
+let picker = null;
 
 // 要标记的时间
-var tagDate = [{
+const tagDate = [
+  {
     date: [moment().add(2, 'day'), moment().add(3, 'day')],
     piece: true,
     name: '已锁定',
@@ -33,21 +34,21 @@ var tagDate = [{
 ];
 
 // 已选时间
-var selectedDate = [];
+const selectedDate = [];
 
-var updateView = () => {
-  var datesBox = $('.dates');
-  var tagsBox = $('.tags');
-  var dates = picker.getValue();
+const updateView = () => {
+  const datesBox = $('.dates');
+  const tagsBox = $('.tags');
+  const dates = picker.getValue();
 
   if (datesBox.attr('data-render') !== 'true') {
     datesBox.attr('data-render', true);
-    datesBox.bind('click', function(e) {
-      var value = picker.getValue();
+    datesBox.bind('click', (e) => {
+      const value = picker.getValue();
       if ($(e.target).hasClass('del')) {
         value.splice($(e.target).parent().index(), 1);
         picker.update({
-          value: value,
+          value,
         });
         updateView();
       }
@@ -62,12 +63,11 @@ var updateView = () => {
 
   tagsBox.html(tagDate.map(tag =>
     `<div><i style="background-color:${tag.styles.backgroundColor}"></i>${tag.name}</div>`));
-  datesBox.html(dates.map(date =>
-    `<div>${date[0].format('YYYY-MM-DD')} ~ ${date[1].format('YYYY-MM-DD')} <i class="del">×</i></div>`
-  ));
+  datesBox.html(dates.map(date => `<div>${date[0].format('YYYY-MM-DD')} ~ ${date[1].format('YYYY-MM-DD')} <i class="del">×</i></div>`));
 };
 
-var showPicker = function(el) {
+// eslint-disable-next-line
+const showPicker = (el) => {
   pickerBox.show();
   $(el).css({
     position: 'relative',
@@ -79,21 +79,22 @@ var showPicker = function(el) {
   });
 
   pickerBox.appendTo(el);
-}
+};
 
-var hidePicker = function() {
+// eslint-disable-next-line
+const hidePicker = () => {
   pickerBox.hide();
-}
+};
 
 // eslint-disable-next-line
 picker = new Picker({
   target: pickerBox.find(' > div').eq(0),
   // minDate: moment(),
   // maxDate: moment().add(10, 'day'),
-  tagDate: tagDate,
+  tagDate,
   value: selectedDate,
   multiple: true,
-  onChange: function(type, dates) {
+  onChange: (type, dates) => {
     if (type === 'range') {
       console.log('onChange range', dates);
       updateView();
@@ -104,34 +105,34 @@ picker = new Picker({
   },
 });
 
-$(window).bind('click', function() {
-  hidePicker();
-});
+// $(window).bind('click', function() {
+//   hidePicker();
+// });
 
-pickerBox.bind('click', function(e) {
-  e.stopPropagation();
-})
+// pickerBox.bind('click', function(e) {
+//   e.stopPropagation();
+// })
 
-// 取消按钮
-pickerBox.find('.button.cancel').bind('click', function() {
-  hidePicker();
-});
+// // 取消按钮
+// pickerBox.find('.button.cancel').bind('click', function() {
+//   hidePicker();
+// });
 
-// 保存
-pickerBox.find('.button.save').bind('click', function() {
-  hidePicker();
-});
+// // 保存
+// pickerBox.find('.button.save').bind('click', function() {
+//   hidePicker();
+// });
 
-// 显示按钮绑定
-$('.choose-button').bind('click', function(e) {
-  e.stopPropagation();
-  if ($(e.target).hasClass('choose-button')) {
-    picker.update({
-      value: [],
-    });
-    updateView();
-    showPicker(this);
-  }
-});
+// // 显示按钮绑定
+// $('.choose-button').bind('click', function(e) {
+//   e.stopPropagation();
+//   if ($(e.target).hasClass('choose-button')) {
+//     picker.update({
+//       value: [],
+//     });
+//     updateView();
+//     showPicker(this);
+//   }
+// });
 
 updateView();
