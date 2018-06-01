@@ -268,7 +268,7 @@ export default class Picker {
       maxMonth = nextDate.month() + 1;
     }
 
-    for (let i = minMonth + 1; i < maxMonth; i += 1) {
+    for (let i = minMonth; i <= maxMonth; i += 1) {
       months.push(i);
     }
 
