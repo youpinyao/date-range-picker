@@ -223,10 +223,18 @@ export default class Picker {
     let maxYear = date.year() + diff;
 
     if (prevDate) {
-      minYear = prevDate.year();
+      if (prevDate.month() >= date.month()) {
+        minYear = prevDate.year() + 1;
+      } else {
+        minYear = prevDate.year();
+      }
     }
     if (nextDate) {
-      maxYear = nextDate.year();
+      if (nextDate.month() <= date.month()) {
+        maxYear = nextDate.year() - 1;
+      } else {
+        maxYear = nextDate.year();
+      }
     }
 
     for (let i = minYear; i <= maxYear; i += 1) {
@@ -262,10 +270,10 @@ export default class Picker {
     let maxMonth = 12;
 
     if (prevDate && prevDate.year() === date.year()) {
-      minMonth = prevDate.month() + 1;
+      minMonth = prevDate.month() + 2;
     }
     if (nextDate && nextDate.year() === date.year()) {
-      maxMonth = nextDate.month() + 1;
+      maxMonth = nextDate.month();
     }
 
     for (let i = minMonth; i <= maxMonth; i += 1) {
