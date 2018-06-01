@@ -244,6 +244,7 @@ export default class Picker {
       this.setState({
         dates,
       });
+      this.onChange('date');
     });
   }
   // eslint-disable-next-line
@@ -282,6 +283,7 @@ export default class Picker {
       this.setState({
         dates,
       });
+      this.onChange('date');
     });
   }
   prevMonth(e) {
