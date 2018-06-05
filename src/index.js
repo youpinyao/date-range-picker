@@ -27,6 +27,14 @@ export default class Picker {
     return {
       update: this.update.bind(this),
       getValue: () => $.extend(true, [], this.state.value),
+      setValue: (value) => {
+        this.update({
+          value,
+          startDate: null,
+          endDate: null,
+          moveEndDate: null,
+        });
+      },
     };
   }
   update(config) {
