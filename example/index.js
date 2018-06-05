@@ -47,9 +47,7 @@ const updateView = () => {
       const value = picker.getValue();
       if ($(e.target).hasClass('del')) {
         value.splice($(e.target).parent().index(), 1);
-        picker.update({
-          value,
-        });
+        picker.setValue(value);
         updateView();
       }
     });
@@ -131,9 +129,7 @@ pickerBox.find('.button.save').bind('click', () => {
 $('.choose-button').bind('click', function(e) {
   e.stopPropagation();
   if ($(e.target).hasClass('choose-button')) {
-    picker.update({
-      value: [],
-    });
+    picker.setValue([]);
     updateView();
     showPicker(this);
   }

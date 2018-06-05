@@ -55,6 +55,11 @@ export default class Picker {
       onChange = this.state.onChange,
       // 是否多选
       multiple = this.state.multiple,
+
+      // 选中控制
+      startDate = this.state.startDate,
+      endDate = this.state.endDate,
+      moveEndDate = this.state.moveEndDate,
     } = config;
 
     this.setState({
@@ -69,9 +74,9 @@ export default class Picker {
       dates: dates || [moment(), moment().add(1, 'month')],
       onChange,
 
-      startDate: this.state.startDate,
-      endDate: this.state.endDate,
-      moveEndDate: this.state.moveEndDate,
+      startDate,
+      endDate,
+      moveEndDate,
 
       // 多选
       multiple,
