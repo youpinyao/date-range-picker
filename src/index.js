@@ -401,6 +401,12 @@ export default class Picker {
         value = selectDate;
       }
       onChange.call(this, type, value);
+
+      this.setState({
+        startDate: null,
+        endDate: null,
+        moveEndDate: null,
+      });
     }
     if (type === 'date') {
       onChange.call(this, type, dates);
