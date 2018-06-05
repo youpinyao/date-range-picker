@@ -101,38 +101,42 @@ picker = new Picker({
     }
     if (type === 'date') {
       console.log('onChange date', dates);
+      picker.update({
+        tagDate,
+      });
     }
   },
 });
 
-// $(window).bind('click', function() {
-//   hidePicker();
-// });
+$(window).bind('click', () => {
+  hidePicker();
+});
 
-// pickerBox.bind('click', function(e) {
-//   e.stopPropagation();
-// })
+pickerBox.bind('click', (e) => {
+  e.stopPropagation();
+});
 
-// // 取消按钮
-// pickerBox.find('.button.cancel').bind('click', function() {
-//   hidePicker();
-// });
+// 取消按钮
+pickerBox.find('.button.cancel').bind('click', () => {
+  hidePicker();
+});
 
-// // 保存
-// pickerBox.find('.button.save').bind('click', function() {
-//   hidePicker();
-// });
+// 保存
+pickerBox.find('.button.save').bind('click', () => {
+  hidePicker();
+});
 
-// // 显示按钮绑定
-// $('.choose-button').bind('click', function(e) {
-//   e.stopPropagation();
-//   if ($(e.target).hasClass('choose-button')) {
-//     picker.update({
-//       value: [],
-//     });
-//     updateView();
-//     showPicker(this);
-//   }
-// });
+// 显示按钮绑定
+// eslint-disable-next-line
+$('.choose-button').bind('click', function(e) {
+  e.stopPropagation();
+  if ($(e.target).hasClass('choose-button')) {
+    picker.update({
+      value: [],
+    });
+    updateView();
+    showPicker(this);
+  }
+});
 
 updateView();

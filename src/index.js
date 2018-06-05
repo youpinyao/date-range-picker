@@ -61,9 +61,9 @@ export default class Picker {
       dates: dates || [moment(), moment().add(1, 'month')],
       onChange,
 
-      startDate: null,
-      endDate: null,
-      moveEndDate: null,
+      startDate: this.state.startDate,
+      endDate: this.state.endDate,
+      moveEndDate: this.state.moveEndDate,
 
       // 多选
       multiple,
