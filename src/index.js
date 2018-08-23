@@ -390,9 +390,6 @@ export default class Picker {
       value,
     } = this.state;
 
-    // 赋值
-    this.state.value = value;
-
     if (type === 'range') {
       // eslint-disable-next-line
       const selectDate = [startDate, endDate].sort((a, b) => +(a._d) - +(b._d));
@@ -408,6 +405,7 @@ export default class Picker {
         startDate: null,
         endDate: null,
         moveEndDate: null,
+        value,
       });
     }
     if (type === 'date') {
