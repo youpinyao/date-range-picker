@@ -26,7 +26,9 @@ export default class Picker {
 
     return {
       update: this.update.bind(this),
-      getValue: () => $.extend(true, [], this.state.value),
+      getValue: () => (
+        this.state.multiple ? $.extend(true, [], this.state.value) : this.state.value
+      ),
       setValue: (value) => {
         this.update({
           value,
