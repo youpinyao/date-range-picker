@@ -24,6 +24,7 @@ function getDate({
 
   let disabled = false;
   let piece = false;
+  let tip = '';
   let styles = {};
 
   if (tagDateMill) {
@@ -31,6 +32,7 @@ function getDate({
       if (items.tag && dateMill >= items.date[0] && dateMill <= items.date[1]) {
         // disabled = true;
         piece = !!items.piece;
+        tip = items.tip || '';
         styles = {
           ...styles,
           ...items.styles,
@@ -68,6 +70,8 @@ function getDate({
     piece,
     // 样式
     styles: Object.keys(styles).map(key => `${key}:${styles[key]}`).join(';'),
+    // 提示文案
+    tip,
   };
 }
 

@@ -33,9 +33,13 @@
       data-day="{{$value.day}}"
       data-full-date="{{$value.fullDate}}"
       style="{{$value.piece ? undefined : $value.styles}}"
-      data-date="{{$value.date}}">{{$value.date}} {{if $value.piece}}
+      data-date="{{$value.date}}">{{$value.date}}
+      {{if $value.piece}}
       <div class="y-date-range-picker-date-piece"
         style="{{$value.styles}}"></div>
+      {{/if}}
+      {{if $value.tip}}
+      <div class="y-date-range-picker-date-tip">{{$value.tip}}</div>
       {{/if}}
     </div>
     {{/each}}

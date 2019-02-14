@@ -31,6 +31,14 @@ const tagDate = [
       backgroundColor: '#ffffff',
     },
   },
+  {
+    date: [moment().add(5, 'day'), moment().add(5, 'day')],
+    name: '空闲',
+    tip: 'cpm',
+    styles: {
+      backgroundColor: '#ffffff',
+    },
+  },
 ];
 
 // 已选时间
