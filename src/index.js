@@ -309,31 +309,33 @@ export default class Picker {
       this.onChange('date');
     });
   }
+  // eslint-disable-next-line
   prevMonth(e) {
-    const target = $(e.target);
+    // const target = $(e.target);
     const {
       dates,
     } = this.state;
-    const index = target.parent().parent().parent().index();
+    // const index = target.parent().parent().parent().index();
 
-    dates[index] = dates[index].add(-1, 'month');
+    // dates[index] = dates[index].add(-1, 'month');
 
     this.setState({
-      dates,
+      dates: dates.map(date => date.add(-1, 'month')),
     });
     this.onChange('date');
   }
+  // eslint-disable-next-line
   nextMonth(e) {
-    const target = $(e.target);
+    // const target = $(e.target);
     const {
       dates,
     } = this.state;
-    const index = target.parent().parent().parent().index();
+    // const index = target.parent().parent().parent().index();
 
-    dates[index] = dates[index].add(1, 'month');
+    // dates[index] = dates[index].add(1, 'month');
 
     this.setState({
-      dates,
+      dates: dates.map(date => date.add(1, 'month')),
     });
     this.onChange('date');
   }
